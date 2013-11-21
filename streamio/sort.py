@@ -20,7 +20,7 @@ from .stream import jsonstream
 class ProgressBar(ChargingBar):
     """Customized Progress Bar"""
 
-    suffix = "%(index)d/%(max)d %(percent).1f%% - Rate: %(avg).1fs ETA: %(human_eta)s Elapsed: %(human_elapsed)s"
+    suffix = "%(index)d/%(max)d %(percent).1f%% - Rate: %(avg).1fs ETA: %(eta)s"
     message = "Processing"
 
 
