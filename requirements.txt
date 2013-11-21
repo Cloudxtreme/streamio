@@ -1,0 +1,4 @@
+funcy==0.7
+py==1.4.18
+ujson==1.33
+-e git+https://github.com/therealprologic/progress.git#egg=progress
