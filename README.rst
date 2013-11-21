@@ -8,6 +8,7 @@
 .. _PyPi Page: http://pypi.python.org/pypi/streamio
 .. _Read the Docs: http://streamio.readthedocs.org/en/latest/
 .. _Downloads Page: https://bitbucket.org/prologic/streamio/downloads
+.. _API: http://streamio.readthedocs.org/en/latest/api.html
 
 
 streamio is a simple library of functions designed to read, write and sort large files using iterators so that the operations will successfully complete
@@ -15,16 +16,7 @@ on systems with limited RAM. This library has been used extensively at `Griffith
 `Climate Change and Adaptation Visualization`_ tool(s) and processing large volumes of data. streamio is written in `Python`_ and has extensive documentation
 and unit tests with 100% coverage.
 
-streamio currently has the following functionality available:
-
-- ``stream`` - read large files as an iterative stream.
-- ``jsonstream`` - read large files as a json stream where each line in the file is valid json.
-- ``csvstream`` - read large csv files as a stream interpreteing as csv.
-- ``csvdictstream`` - read large csv files as a stream interpreteing as csv and yielding dicts.
-- ``merge`` - take a list of ordered iterables and return a single ordered generator (*similar to heapq.merge but with key support*)
-- ``mergesort`` - given a large unsorted input file, split into chunks, sort and merge sort the result into an output file.
-- ``minmax`` - compute the min and max of a given iterable all at once
-
+See the `API`_ for a list of the available functions.
 
 - Visit the `Project Website`_
 - `Read the Docs`_
@@ -42,6 +34,35 @@ streamio currently has the following functionality available:
    :target: https://jenkins.shiningpanda-ci.com/prologic/job/streamio/
    :alt: Build Status
 
+
+Examples
+--------
+
+
+Read a large text file iteratively:
+
+.. code-block:: python
+    
+    from streamio import stream
+    f = stream("large_file.txt")
+    
+
+Read a large CSV file iteratively:
+
+.. code-block:: python
+    
+    from streamio import jsonstream
+    f = stream("large_file.json")
+    
+
+Merge-sort a large JSON file with the key ``itemgetter("value")``:
+
+.. code-block:: python
+    
+    from operator import itemgetter
+    from streamio import mergesort
+    f = mergesort("large_file.json", key=itemgetter("value"))
+    
 
 Requirements
 ------------

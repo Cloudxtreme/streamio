@@ -2,7 +2,7 @@
 # Date:     18th December 2012
 # Author:   James Mills, j dot mills at griffith dot edu dot au
 
-"""streamio - Python Spider Tool and Library
+"""streamio - reading, writing and sorting large files.
 
 streamio is a simple library of functions designed to read, write and sort large files using iterators so that the operations will successfully complete
 on systems with limited RAM.
