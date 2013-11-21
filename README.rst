@@ -95,7 +95,7 @@ Supported Platforms
 -------------------
 
 - Linux, FreeBSD, Mac OS X
-- Python 2.6, 2.7
+- Python 2.7, 3.3
 - PyPy 2.2
 
 **Windows**: We acknowledge that Windows exists and make reasonable efforts

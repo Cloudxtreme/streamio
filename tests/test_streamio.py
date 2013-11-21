@@ -5,13 +5,8 @@ from time import time
 from json import dumps
 from itertools import chain
 from operator import itemgetter
+from collections import OrderedDict
 from random import randint, sample, seed
-
-try:
-    from collections import OrderedDict as odict
-except ImportError:  # Python 2.6
-    # Taken from: https://raw.github.com/bluedynamics/odict/master/src/odict/pyodict.py
-    from .odict import odict  # noqa
 
 
 from streamio import csvstream, csvdictstream, jsonstream, merge, mergesort, minmax
@@ -84,7 +79,7 @@ def test__csvdictstream1(tmpdir):
     fields = ["a", "b", "c"]
 
     seed(time())
-    xs = [odict(zip(fields, map(str, sample(range(100), 3)))) for _ in range(4)]
+    xs = [OrderedDict(zip(fields, map(str, sample(range(100), 3)))) for _ in range(4)]
 
     with tmpdir.join("test.csv").open("w") as f:
         f.write("{0:s}\n".format(",".join(fields)))
