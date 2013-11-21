@@ -6,9 +6,9 @@
 
 
 import heapq
+from json import dumps
 
 
-from ujson import dumps
 from py._path.local import LocalPath
 from progress.bar import ChargingBar
 from funcy import count, first, ichunks, ifilter, imap

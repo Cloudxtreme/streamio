@@ -47,7 +47,6 @@ setup(
     install_requires=[
         "funcy==0.7",
         "py==1.4.18",
-        "ujson==1.33",
         "progress==1.1",
     ],
     entry_points={

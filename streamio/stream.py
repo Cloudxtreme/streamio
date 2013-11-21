@@ -6,10 +6,10 @@
 
 
 import csv
+from json import loads
 from string import strip
 
 
-from ujson import loads
 from py._path.local import LocalPath
 from funcy import compact, imap, zipdict
 

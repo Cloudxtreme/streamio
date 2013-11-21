@@ -1,6 +1,5 @@
 .. _Python: http://www.python.org/
 .. _funcy: http://pypi.python.org/pypi/funcy
-.. _ujson: http://pypi.python.org/pypi/ujson
 .. _py: http://pypi.python.org/pypi/py
 .. _Griffith University: http://www.griffith.edu.au/
 .. _TerraNova: https://terranova.org.au/
@@ -48,7 +47,6 @@ Requirements
 ------------
 
 - `funcy`_
-- `ujson`_
 - `py`_
 
 streamio also comes with documentation and a full comprehensive unit test suite which require the following:
