@@ -8,7 +8,7 @@
 .. _PyPi Page: http://pypi.python.org/pypi/streamio
 .. _Read the Docs: http://streamio.readthedocs.org/en/latest/
 .. _Downloads Page: https://bitbucket.org/prologic/streamio/downloads
-.. _API: http://streamio.readthedocs.org/en/latest/api.html
+.. _API: http://streamio.readthedocs.org/en/latest/api/
 
 
 streamio is a simple library of functions designed to read, write and sort large files using iterators so that the operations will successfully complete
