@@ -2,8 +2,8 @@ Changes
 -------
 
 
-streamio 0.0.3.dev
-..................
+streamio 0.0.3 (2013-11-21)
+...........................
 
 - Fixed broken link to the API Docs.
 
