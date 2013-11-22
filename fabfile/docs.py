@@ -4,7 +4,7 @@
 
 """Documentation Tasks"""
 
-from fabric.api import lcd, local, task
+from fabric.api import execute, lcd, local, task
 
 from .utils import pip, requires, tobool
 
@@ -32,6 +32,8 @@ def build(**options):
 
     clean = tobool(options.get("clean", False))
     view = tobool(options.get("view", False))
+
+    execute(apidoc)
 
     with lcd("docs"):
         pip(requirements="requirements.txt")

@@ -4,7 +4,7 @@ Changes
 streamio 0.0.4.dev
 ..................
 
--
+- Added ``streamio.stream.compress`` function for compressing an iterable using zlib compression.
 
 
 streamio 0.0.3 (2013-11-21)

@@ -6,6 +6,9 @@
 
 
 import csv
+import zlib
+import struct
+from time import time
 from json import loads
 from string import strip
 
@@ -101,4 +104,50 @@ def jsonstream(filename):
     return imap(loads, stream(filename))
 
 
-__all__ = ("stream", "csvstream", "csvdictstream", "jsonstream",)
+def compress(iterable, level=9, encoding="utf-8"):
+    """Compress the given iterable of bytes using zlib compressin
+
+    :param iterable: An iterable of bytes to compress using zlib (ZIP)
+    :type iterable: An iterable of ``bytes`` (If ``str`` will be encoded)
+
+    :param level: An optional Compression Level
+    :type level: ``int`` (Default: 9)
+
+    :param encoding: An optional encoding to use when dealing with an iterable of ``str``
+    :type encoding: ``str`` (Default: utf-8)
+
+    :returns: An iterable compressed with zlib
+    :rtype: iterable stream of ``bytes``
+    """
+
+    # See http://www.gzip.org/zlib/rfc-gzip.html
+    yield b"\x1f\x8b"       # ID1 and ID2: gzip marker
+    yield b"\x08"           # CM: compression method
+    yield b"\x00"           # FLG: none set
+
+    # MTIME: 4 bytes
+    yield struct.pack("<L", int(time()) & int('FFFFFFFF', 16))
+    yield b"\x02"           # XFL: max compression, slowest algo
+    yield b"\xff"           # OS: unknown
+
+    crc = zlib.crc32(b"")
+    size = 0
+    zobj = zlib.compressobj(level,
+                            zlib.DEFLATED, -zlib.MAX_WBITS,
+                            zlib.DEF_MEM_LEVEL, 0)
+    for chunk in iterable:
+        if not isinstance(chunk, bytes):
+            chunk = chunk.encode(encoding)
+
+        size += len(chunk)
+        crc = zlib.crc32(chunk, crc)
+        yield zobj.compress(chunk)
+    yield zobj.flush()
+
+    # CRC32: 4 bytes
+    yield struct.pack("<L", crc & int('FFFFFFFF', 16))
+    # ISIZE: 4 bytes
+    yield struct.pack("<L", size & int('FFFFFFFF', 16))
+
+
+__all__ = ("stream", "csvstream", "csvdictstream", "jsonstream", "compress",)

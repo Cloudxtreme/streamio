@@ -17,6 +17,6 @@ from .version import version as __version__  # noqa
 
 from .stat import minmax  # noqa
 from .sort import merge, mergesort  # noqa
-from .stream import stream, csvstream, jsonstream, csvdictstream  # noqa
+from .stream import stream, csvstream, jsonstream, csvdictstream, compress  # noqa
 
-__all__ = ("minmax", "merge", "mergesort", "stream", "csvstream", "jsonstream", "csvdictstream",)
+__all__ = ("minmax", "merge", "mergesort", "stream", "csvstream", "jsonstream", "csvdictstream", "compress",)

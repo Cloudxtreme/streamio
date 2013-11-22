@@ -1,7 +1,9 @@
 """Unit Test(s)"""
 
 
+import gzip
 from time import time
+from io import BytesIO
 from json import dumps
 from itertools import chain
 from operator import itemgetter
@@ -9,7 +11,17 @@ from collections import OrderedDict
 from random import randint, sample, seed
 
 
-from streamio import csvstream, csvdictstream, jsonstream, merge, mergesort, minmax
+from streamio import csvstream, csvdictstream, jsonstream, compress, merge, mergesort, minmax
+
+
+def decompress(body):
+    zbuf = BytesIO()
+    zbuf.write(body)
+    zbuf.seek(0)
+    zfile = gzip.GzipFile(mode='rb', fileobj=zbuf)
+    data = zfile.read()
+    zfile.close()
+    return data
 
 
 def test__jsonstream1(tmpdir):
@@ -43,6 +55,24 @@ def test__jsonstream3(tmpdir):
             f.write("{0:s}\n".format(dumps(x)))
 
     assert list(jsonstream(str(tmpdir.join("test.json")))) == xs
+
+
+def test__compress1(tmpdir):
+    xs = ["foo"] * 10
+
+    with tmpdir.join("test.json.zip").open("w") as f:
+        f.write("".join(compress(xs)))
+
+    assert decompress(tmpdir.join("test.json.zip").open("r").read()) == "".join(xs)
+
+
+def test__compress2(tmpdir):
+    xs = [u"foo"] * 10
+
+    with tmpdir.join("test.json.zip").open("w") as f:
+        f.write("".join(compress(xs)))
+
+    assert decompress(tmpdir.join("test.json.zip").open("r").read()) == "".join(xs)
 
 
 def test__csvstream1(tmpdir):
