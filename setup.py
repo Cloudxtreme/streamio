@@ -45,9 +45,9 @@ setup(
     packages=find_packages("."),
     scripts=glob("bin/*"),
     install_requires=[
+        "py",
+        "progress",
         "funcy==0.7",
-        "py==1.4.18",
-        "progress==1.1",
     ],
     entry_points={
         "console_scripts": [

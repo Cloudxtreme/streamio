@@ -5,6 +5,7 @@ streamio 0.0.4 (2013-11-22)
 ...........................
 
 - Added ``streamio.stream.compress`` function for compressing an iterable using zlib compression.
+- Loosended requirements on ``py`` and ``progress``
 
 
 streamio 0.0.3 (2013-11-21)
