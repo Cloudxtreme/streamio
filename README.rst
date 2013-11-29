@@ -34,6 +34,10 @@ See the `API`_ for a list of the available functions.
    :target: https://jenkins.shiningpanda-ci.com/prologic/job/streamio/
    :alt: Build Status
 
+.. image:: https://requires.io/bitbucket/prologic/streamio/requirements.png?branch=default
+   :target: https://requires.io/bitbucket/prologic/streamio/requirements/?branch=default
+   :alt: Requirements Status
+
 
 Examples
 --------
