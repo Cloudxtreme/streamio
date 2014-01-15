@@ -5,7 +5,7 @@ Changes
 streamio 0.0.5.dev
 ..................
 
--
+- Added ``encoding`` parameter support to ``*stream()`` function(s).
 
 
 streamio 0.0.4 (2013-11-22)

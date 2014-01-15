@@ -17,8 +17,11 @@ from py._path.local import LocalPath
 from funcy import compact, imap, zipdict
 
 
-def stream(filename, skipblank=True, strip=True, stripchars="\r\n\t "):
+def stream(filename, encoding="utf-8", skipblank=True, strip=True, stripchars="\r\n\t "):
     """Stream every line in the given file.
+
+    :param encoding: A ``str`` indicating the charset/encoding to use.
+    :type encoding:  ``str``
 
     :param filename: A ``str`` filename, A ``py._path.local.LocalPath`` instance or open ``file`` instnace.
     :type filename:  ``str``, ``py._path.local.LocalPath`` or ``file``.
@@ -48,11 +51,17 @@ def stream(filename, skipblank=True, strip=True, stripchars="\r\n\t "):
             yield line
 
 
-def csvstream(filename):
+def csvstream(filename, encoding="utf-8", stripchars="\r\n"):
     """Stream every line in the given file interpreting each line as CSV.
 
     :param filename: A ``str`` filename, A ``py._path.local.LocalPath`` instance or open ``file`` instnace.
     :type filename:  ``str``, ``py._path.local.LocalPath`` or ``file``.
+
+    :param encoding: A ``str`` indicating the charset/encoding to use.
+    :type encoding:  ``str``
+
+    :param stripchars: An iterable of characters to strip from the surrounding line. ``line.strip(...)`` is used.
+    :type stripchars: ``list``, ``tuple`` or ``str``
 
     This is a wrapper around ``stream`` where the stream is treated as CSV.
     """
@@ -65,24 +74,30 @@ def csvstream(filename):
         fd = filename
 
     sniffer = csv.Sniffer()
-    dialect = sniffer.sniff(fd.readline())
+    dialect = sniffer.sniff(fd.readline().decode(encoding))
     fd.seek(0)
 
-    reader = csv.reader(stream(fd, stripchars="\r\n"), dialect)
+    reader = csv.reader(stream(fd, encoding=encoding, stripchars=stripchars), dialect)
     for item in reader:
         yield item
 
 
-def csvdictstream(filename, fields=None):
+def csvdictstream(filename, encoding="utf-8", fields=None, stripchars="\r\n"):
     """Stream every line in the given file interpreting each line as a dictionary of fields to items.
 
     :param filename: A ``str`` filename, A ``py._path.local.LocalPath`` instance or open ``file`` instnace.
     :type filename:  ``str``, ``py._path.local.LocalPath`` or ``file``.
 
+    :param encoding: A ``str`` indicating the charset/encoding to use.
+    :type encoding:  ``str``
+
+    :param stripchars: An iterable of characters to strip from the surrounding line. ``line.strip(...)`` is used.
+    :type stripchars: ``list``, ``tuple`` or ``str``
+
     This is a wrapper around ``csvstream`` where the stream is treated as dict of field(s) to item(s).
     """
 
-    stream = csvstream(filename)
+    stream = csvstream(filename, encoding=encoding, stripchars=stripchars)
 
     if fields is None:
         fields = map(strip, next(stream))
@@ -91,17 +106,23 @@ def csvdictstream(filename, fields=None):
         yield compact(zipdict(fields, values))
 
 
-def jsonstream(filename):
+def jsonstream(filename, encoding="utf-8"):
     """Stream every line in the given file interpreting each line as JSON.
 
     :param filename: A ``str`` filename, A ``py._path.local.LocalPath`` instance or open ``file`` instnace.
     :type filename:  ``str``, ``py._path.local.LocalPath`` or ``file``.
 
+    :param encoding: A ``str`` indicating the charset/encoding to use.
+    :type encoding:  ``str``
+
+    :param stripchars: An iterable of characters to strip from the surrounding line. ``line.strip(...)`` is used.
+    :type stripchars: ``list``, ``tuple`` or ``str``
+
     This is a wrappedaround ``stream`` except that it wraps each line in a ``dumps`` call essentially treating
     each line as a piece of valid JSON.
     """
 
-    return imap(loads, stream(filename))
+    return imap(loads, stream(filename, encoding=encoding))
 
 
 def compress(iterable, level=9, encoding="utf-8"):
