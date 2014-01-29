@@ -2,8 +2,8 @@ Changes
 -------
 
 
-streamio 0.0.7.dev
-..................
+streamio 0.0.7 (*2014-01-29*)
+.............................
 
 - Forgot to include required README.rst and CHANGES.rst
 
