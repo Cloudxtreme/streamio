@@ -2,8 +2,14 @@ Changes
 -------
 
 
-streamio 0.0.6 (2014-01-29)
-...........................
+streamio 0.0.7.dev
+..................
+
+-
+
+
+streamio 0.0.6 (*2014-01-29*)
+.............................
 
 - Don't include fabfile and tests (for now) in the resulting egg
 - Make ``mergesort`` show progress optionally via ``progress=True``
