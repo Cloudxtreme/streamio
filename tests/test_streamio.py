@@ -155,7 +155,7 @@ def test__mergesort1(tmpdir):
         for x in xs:
             f.write("{0:s}\n".format(dumps(x)))
 
-    mergesort(tmpdir.join("test.json"), maxitems=1000)
+    mergesort(tmpdir.join("test.json"), maxitems=1000, progress=False)
 
     assert list(jsonstream(tmpdir.join("test.json"))) == sorted(xs)
 
@@ -169,7 +169,7 @@ def test__mergesort2(tmpdir):
             f.write("{0:s}\n".format(dumps(x)))
 
     key = itemgetter(0, 1, 2, 3)
-    mergesort(tmpdir.join("test.json"), key=key, maxitems=1000)
+    mergesort(tmpdir.join("test.json"), key=key, maxitems=1000, progress=False)
 
     assert list(jsonstream(tmpdir.join("test.json"))) == sorted(xs, key=key)
 
@@ -182,7 +182,7 @@ def test__mergesort3(tmpdir):
         for x in xs:
             f.write("{0:s}\n".format(dumps(x)))
 
-    mergesort(tmpdir.join("test.json"), maxitems=10000)
+    mergesort(tmpdir.join("test.json"), maxitems=10000, progress=False)
 
     assert list(jsonstream(tmpdir.join("test.json"))) == sorted(xs)
 
