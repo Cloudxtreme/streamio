@@ -1,5 +1,3 @@
-Sphinx
-Sphinx-PyPI-upload
-sphinxcontrib-bitbucket
-sphinxcontrib-programoutput
-sphinxcontrib-googleanalytics
+Sphinx==1.2.1
+Sphinx-PyPI-upload==0.2.1
+sphinxcontrib-bitbucket==1.0

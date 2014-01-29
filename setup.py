@@ -46,8 +46,8 @@ setup(
     scripts=glob("bin/*"),
     install_requires=[
         "py",
+        "funcy",
         "progress",
-        "funcy==0.7",
     ],
     entry_points={
         "console_scripts": [
