@@ -1,43 +1,46 @@
-streamio Package
+streamio package
 ================
 
-:mod:`streamio` Package
------------------------
+Submodules
+----------
 
-.. automodule:: streamio.__init__
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`sort` Module
-------------------
+streamio.sort module
+--------------------
 
 .. automodule:: streamio.sort
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`stat` Module
-------------------
+streamio.stat module
+--------------------
 
 .. automodule:: streamio.stat
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`stream` Module
---------------------
+streamio.stream module
+----------------------
 
 .. automodule:: streamio.stream
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`version` Module
----------------------
+streamio.version module
+-----------------------
 
 .. automodule:: streamio.version
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: streamio
+    :members:
+    :undoc-members:
+    :show-inheritance:

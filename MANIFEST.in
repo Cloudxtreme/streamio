@@ -1,5 +1,3 @@
-recursive-include docs *
-recursive-include tests *
-recursive-include fabfile *
 recursive-include streamio *
-include LICENSE *.ini *.rst *.sh
+recursive-exclude fabfile *
+recursive-exclude tests *

@@ -4,7 +4,7 @@ from glob import glob
 from os import getcwd, path
 from imp import new_module
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 version = new_module("version")
@@ -42,12 +42,12 @@ setup(
     license="MIT",
     keywords="Python Large Files Reading Writing Sorting Streaming",
     platforms="POSIX",
-    packages=find_packages("."),
+    packages=["streamio"],
     scripts=glob("bin/*"),
     install_requires=[
         "py",
+        "funcy",
         "progress",
-        "funcy==0.7",
     ],
     entry_points={
         "console_scripts": [

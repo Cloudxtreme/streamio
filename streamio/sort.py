@@ -70,7 +70,7 @@ def merge(*iterables, **kwargs):
             return
 
 
-def mergesort(filename, output=None, key=None, maxitems=1e6):
+def mergesort(filename, output=None, key=None, maxitems=1e6, progress=True):
     """Given an input file sort it by performing a merge sort on disk.
 
     :param filename: Either a filename as a ``str`` or a ``py._path.local.LocalPath`` instance.
@@ -84,6 +84,9 @@ def mergesort(filename, output=None, key=None, maxitems=1e6):
 
     :param maxitems: Maximum number of items to hold in memory at a time.
     :type maxitems:  ``int``
+
+    :param progress: Whether or not to display a progress bar
+    :type progress: ``bool``
 
     This uses ``py._path.local.LocalPath.make_numbered_dir`` to create temporry scratch space to work
     with when splitting the input file into sorted chunks. The mergesort is processed iteratively in-memory
@@ -103,19 +106,25 @@ def mergesort(filename, output=None, key=None, maxitems=1e6):
     chunksize = first(ifilter(lambda x: x < maxitems, imap(lambda x: nlines / (2**x), count(1))))
 
     # Split the file up into n sorted files
-    bar = ProgressBar("Split/Sorting Data", max=(nlines / chunksize))
+    if progress:
+        bar = ProgressBar("Split/Sorting Data", max=(nlines / chunksize))
     for i, items in enumerate(ichunks(chunksize, jsonstream(p))):
         with scratch.ensure("{0:d}.json".format(i)).open("w") as f:
             f.write("\n".join(map(dumps, sorted(items, key=key))))
-        bar.next()
-    bar.finish()
+        if progress:
+            bar.next()
+    if progress:
+        bar.finish()
 
     q = scratch.listdir("*.json")
     with output.open("w") as f:
-        bar = ProgressBar("Merge/Sorting Data", max=nlines)
+        if progress:
+            bar = ProgressBar("Merge/Sorting Data", max=nlines)
         for item in merge(*imap(jsonstream, q)):
             f.write("{0:s}\n".format(dumps(item)))
-            bar.next()
-        bar.finish()
+            if progress:
+                bar.next()
+        if progress:
+            bar.finish()
 
 __all__ = ("merge", "mergesort",)
