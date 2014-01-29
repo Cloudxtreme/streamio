@@ -5,7 +5,7 @@ Changes
 streamio 0.0.6.dev
 ..................
 
--
+- Don't include fabfile and tests (for now) in the resulting egg
 
 
 streamio 0.0.5 (*2014-01-16*)
