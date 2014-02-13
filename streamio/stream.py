@@ -5,7 +5,6 @@
 """stream"""
 
 
-import csv
 import zlib
 import struct
 from time import time
@@ -13,6 +12,7 @@ from json import loads
 from string import strip
 
 
+import unicodecsv as csv
 from py._path.local import LocalPath
 from funcy import compact, imap, zipdict
 
@@ -21,7 +21,7 @@ def stream(filename, encoding="utf-8", skipblank=True, strip=True, stripchars="\
     """Stream every line in the given file.
 
     :param encoding: A ``str`` indicating the charset/encoding to use.
-    :type encoding:  ``str``
+    :type encoding:  ``str`` or ``None``
 
     :param filename: A ``str`` filename, A ``py._path.local.LocalPath`` instance or open ``file`` instnace.
     :type filename:  ``str``, ``py._path.local.LocalPath`` or ``file``.
@@ -36,6 +36,8 @@ def stream(filename, encoding="utf-8", skipblank=True, strip=True, stripchars="\
     :type stripchars: ``list``, ``tuple`` or ``str``
 
     Each line in the file is read, stripped of surrounding whitespace and returned iteratively. Blank lines are ignored.
+    If they keyword argument ``encoding`` is provided and is not ``None`` each line in the input strema will be decoded
+    using the given encoding, if ``None`` will disable unicode decoding.
     """
 
     if isinstance(filename, LocalPath):
@@ -48,7 +50,10 @@ def stream(filename, encoding="utf-8", skipblank=True, strip=True, stripchars="\
     for line in fd:
         line = line.strip(stripchars) if strip else line
         if line or not skipblank:
-            yield line
+            if encoding is not None:
+            	yield line.decode(encoding)
+            else:
+                yield line
 
 
 def csvstream(filename, encoding="utf-8", stripchars="\r\n"):
@@ -77,7 +82,7 @@ def csvstream(filename, encoding="utf-8", stripchars="\r\n"):
     dialect = sniffer.sniff(fd.readline().decode(encoding))
     fd.seek(0)
 
-    reader = csv.reader(stream(fd, encoding=encoding, stripchars=stripchars), dialect)
+    reader = csv.reader(stream(fd, encoding=None, stripchars=stripchars), encoding=encoding, dialect=dialect)
     for item in reader:
         yield item
 

@@ -1,6 +1,7 @@
 py==1.4.19
 progress==1.2
 funcy==0.9
+unicodecsv==0.9.4
 Fabric==1.8.1
 pudb==2013.5.1
 tox==1.6.1
