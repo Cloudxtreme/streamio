@@ -2,8 +2,8 @@ Changes
 -------
 
 
-streamio 0.0.8.dev
-..................
+streamio 0.0.8 (*2014-02-13*)
+.............................
 
 - Fixed Unicode support for ``csvstream`` adding `unicodecsv <http://pypi.python.org/pypi/unicodecsv>`_ as a new dependency.
 
