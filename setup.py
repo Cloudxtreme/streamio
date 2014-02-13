@@ -45,7 +45,7 @@ setup(
     packages=["streamio"],
     scripts=glob("bin/*"),
     install_requires=[
-        "py==1.4.19",
+        "py==1.4.20",
         "progress==1.2",
         "funcy==0.9",
         "unicodecsv==0.9.4",
